@@ -174,7 +174,7 @@
 
  //CSS customizations
  yellowfingCSS = function() {
-     var myYellow = "#f2f523";
+     var myYellow = "#59f442";
      $("h1").css("color", myYellow);
      $("#skills-h3").css("color", myYellow);
      $(".orange").css("background-color", myYellow);
