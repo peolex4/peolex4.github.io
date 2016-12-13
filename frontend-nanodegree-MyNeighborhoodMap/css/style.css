@@ -1,0 +1,55 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+    height: 100%;
+}
+#settings-box {
+    width: 200px;
+    height: 380px;
+    z-index: 1;
+    position: absolute;
+    background-color: rgba(252, 214, 161, 0.8);
+    padding: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(0, 214, 10, 0.8);
+}
+#scrolling-box {
+    margin-left: 15px;
+}
+#loc-list {
+    overflow: auto;
+    list-style-type: none;
+    height: 340px;
+    padding-left: 0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+#input {
+    width: 190px;
+    margin: 2px;
+}
+#scrollable-list {
+    height: 200px;
+    overflow-y: scroll;
+}
+.list-info {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 85%;
+}
+.list-info-blocks {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#pano {
+    width: 200px;
+    height: 200px;
+}
+#arrow_img {
+    margin: 10px;
+}
