@@ -257,8 +257,14 @@ function setMarkersOnMap() {
     }
 }
 
+// each time a character of the input field changes, i check for markers changes
+$("#input").keyup(function() {
+    setMarkersOnMap();
+});
+
 var viewModel = {
     query: ko.observable(''),
+    searchBoxVisible : ko.observable(true)
 };
 
 viewModel.locations = ko.computed(function() {
@@ -273,38 +279,18 @@ viewModel.locations = ko.computed(function() {
     });
 }, viewModel);
 
-ko.applyBindings(viewModel);
-
-// each time a character of the input field changes, i check for markers changes
-$("#input").keyup(function() {
-    setMarkersOnMap();
-});
-
 // the button for show hide the search box
 $("#arrow_img").click(showHideSearchBox);
 
-var searchBoxVisible = true;
-
 function showHideSearchBox() {
-    if (searchBoxVisible) {
-        hideSearchBox();
-    } else {
-        showSearchBox();
+    if(viewModel.searchBoxVisible()){
+        viewModel.searchBoxVisible(false);
+        $("#arrow_img").attr("src", "images/show.png");
+    }
+    else{
+        viewModel.searchBoxVisible(true);
+        $("#arrow_img").attr("src", "images/hide.png");
     }
 }
 
-function hideSearchBox() {
-    searchBoxVisible = false;
-    $("#settings-box").animate({
-        top: '-395px'
-    });
-    $("#arrow_img").attr("src", "images/show.png");
-}
-
-function showSearchBox() {
-    searchBoxVisible = true;
-    $("#settings-box").animate({
-        top: '0px'
-    });
-    $("#arrow_img").attr("src", "images/hide.png");
-}
+ko.applyBindings(viewModel);

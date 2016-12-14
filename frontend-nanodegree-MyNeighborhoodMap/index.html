@@ -12,7 +12,7 @@
 
 <body>
 
-    <div id="settings-box">
+    <div class="settings-box" data-bind="css: { searchBoxGone: !searchBoxVisible() }">
         <input id="input" type="input" placeholder="Search…" data-bind="textInput: query, valueUpdate: 'keydown'" autocomplete="off">
         <div id="scrolling-box">
             <ul data-bind="template: {name: 'loc', foreach: locations}" id="loc-list"></ul>
