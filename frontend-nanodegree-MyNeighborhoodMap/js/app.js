@@ -1,6 +1,6 @@
 var locations = [
     {
-    id: "element0",
+    ID: "element0",
     title: "Torre Flavia",
     location: {
         lat: 41.955469,
@@ -13,7 +13,7 @@ var locations = [
     wasVisible: true
     },
     {
-    id: "element1",
+    ID: "element1",
     title: "Castello Odescalchi",
     location: {
         lat: 41.933492,
@@ -26,7 +26,7 @@ var locations = [
     wasVisible: true
     },
     {
-    id: "element2",
+    ID: "element2",
     title: "Necropoli della Banditaccia",
     location: {
         lat: 42.007341,
@@ -39,7 +39,7 @@ var locations = [
     wasVisible: true
     },
     {
-    id: "element3",
+    ID: "element3",
     title: "Castello Santa Severa",
     location: {
         lat: 42.015855,
@@ -52,7 +52,7 @@ var locations = [
     wasVisible: true
     },
     {
-    id: "element4",
+    ID: "element4",
     title: "Castello di Ceri",
     location: {
         lat: 41.994505,
@@ -65,7 +65,7 @@ var locations = [
     wasVisible: true
     },
     {
-    id: "element5",
+    ID: "element5",
     title: "Castello Orsini-Odescalchi",
     location: {
         lat: 42.104318,
@@ -141,6 +141,8 @@ function setMarkers(locs) {
         marker.addListener('mouseout', function() {
             this.setIcon('images/green_m.png');
         });
+
+        // Da sostituire questa procedura con un proprio utilizzo di Knockout JS ????
         // Listener for click on elements in the list
         var searchNav = $('#element' + i);
         searchNav.click((function(marker, i) {
@@ -257,6 +259,7 @@ function setMarkersOnMap() {
     }
 }
 
+//Anche qui da usare Knockout JS ???
 // each time a character of the input field changes, i check for markers changes
 $("#input").keyup(function() {
     setMarkersOnMap();
@@ -279,17 +282,13 @@ viewModel.locations = ko.computed(function() {
     });
 }, viewModel);
 
-// the button for show hide the search box
-$("#arrow_img").click(showHideSearchBox);
-
+// Runs when the arrow image is clicked!
 function showHideSearchBox() {
     if(viewModel.searchBoxVisible()){
         viewModel.searchBoxVisible(false);
-        $("#arrow_img").attr("src", "images/show.png");
     }
     else{
         viewModel.searchBoxVisible(true);
-        $("#arrow_img").attr("src", "images/hide.png");
     }
 }
 

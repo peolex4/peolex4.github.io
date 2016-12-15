@@ -18,7 +18,7 @@
             <ul data-bind="template: {name: 'loc', foreach: locations}" id="loc-list"></ul>
             <script type="text/html" id="loc">
                 <div data-bind="visible: isVisible" class="list-info-blocks">
-                    <a href="#" data-bind="attr: {id: id}">
+                    <a href="#" data-bind="attr: {id: ID}">
                         <li>
                             <h3 data-bind="text: title" class="list-info"></h3>
                             <p data-bind="text: address" class="list-info"></p>
@@ -28,7 +28,7 @@
                 </div>
             </script>
         </div>
-        <img src="images/hide.png" id="arrow_img" alt="arrow image">
+        <img id="arrow_img" alt="arrow image" data-bind="attr: { src: searchBoxVisible() ? 'images/hide.png' : 'images/show.png'}, click: showHideSearchBox">
     </div>
     <div id="map"></div>
 
