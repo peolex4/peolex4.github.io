@@ -7,7 +7,6 @@ https://peolex4.github.io/frontend-nanodegree-MyNeighborhoodMap/
 This project show some functionality of Google maps API, the map shows some historical places near Ladispoli.
 
 ### Tools:
-* jQuery
 * knockoutJS
 
 ### APIs:
