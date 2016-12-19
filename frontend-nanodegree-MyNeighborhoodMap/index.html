@@ -13,12 +13,12 @@
 <body>
 
     <div class="settings-box" data-bind="css: { searchBoxGone: !searchBoxVisible() }">
-        <input id="input" type="input" placeholder="Search…" data-bind="textInput: query, valueUpdate: 'keydown'" autocomplete="off">
+        <input id="input" type="input" placeholder="Search…" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="off">
         <div id="scrolling-box">
             <ul data-bind="template: {name: 'loc', foreach: locations}" id="loc-list"></ul>
             <script type="text/html" id="loc">
                 <div data-bind="visible: isVisible" class="list-info-blocks">
-                    <a href="#" data-bind="attr: {id: ID}">
+                    <a href="" data-bind="click: locClicked, event: { mouseover: locMouseOver, mouseout: locMouseOut }">
                         <li>
                             <h3 data-bind="text: title" class="list-info"></h3>
                             <p data-bind="text: address" class="list-info"></p>

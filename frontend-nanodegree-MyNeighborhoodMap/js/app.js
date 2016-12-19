@@ -79,14 +79,12 @@ var locations = [
 }];
 
 var map;
-var markers = [];
-
 var largeInfoWindow;
 var bounds;
 
 function myInitMap() {
     //Check for screen size to eventually hide the search-box panel
-    if ($(window).width() <= 1080) {
+    if (window.innerWidth <= 1080) {
         showHideSearchBox();
     }
     // Constructor creates a new map
@@ -124,35 +122,35 @@ function setMarkers(locs) {
             infoContent: ''
         });
         locs[i].markerVar = marker;
-        markers.push(marker);
         bounds.extend(marker.position);
+
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
-            //così faccio una richiesta ogni volta che ci clicco non mi piace molto...vabbè!
             map.setCenter(this.getPosition());
             map.setZoom(14);
             populateInfoWindow(this, largeInfoWindow);
         });
-        // Two event listeners - one for mouseover, one for mouseout,
-        // to change the colors back and forth.
+        // Two event listeners - one for mouseover, one for mouseout, changing the colors
         marker.addListener('mouseover', function() {
             this.setIcon('images/red_m.png');
         });
         marker.addListener('mouseout', function() {
             this.setIcon('images/green_m.png');
         });
-
-        // Da sostituire questa procedura con un proprio utilizzo di Knockout JS ????
-        // Listener for click on elements in the list
-        var searchNav = $('#element' + i);
-        searchNav.click((function(marker, i) {
-            return function() {
-                map.setCenter(marker.getPosition());
-                map.setZoom(14);
-                populateInfoWindow(marker, largeInfoWindow);
-            };
-        })(locs[i].markerVar, i));
     }
+}
+
+// when a loc is clicked in the searchBar simulate the click of the corresponding Marker on map!
+function locClicked() {
+    google.maps.event.trigger(this.markerVar, 'click');
+}
+// when a loc has mouse over in the searchBar simulate the mouse over of the corresponding Marker on map!
+function locMouseOver() {
+    google.maps.event.trigger(this.markerVar, 'mouseover');
+}
+// when a loc has mouse out in the searchBar simulate the mouse out of the corresponding Marker on map!
+function locMouseOut() {
+    google.maps.event.trigger(this.markerVar, 'mouseout');
 }
 
 function populateInfoWindow(marker, infowindow) {
@@ -242,41 +240,27 @@ function populateInfoWindow(marker, infowindow) {
     }
 }
 
-// check for every marker if it must be or not in the map
-function setMarkersOnMap() {
-    for (var i = 0; i < locations.length; i++) {
-        if (locations[i].isVisible() === true) {
-            if (!locations[i].wasVisible) {
-                locations[i].markerVar.setMap(map);
-                locations[i].wasVisible = true;
-            }
-        } else {
-            if (locations[i].wasVisible) {
-                locations[i].markerVar.setMap(null);
-                locations[i].wasVisible = false;
-            }
-        }
-    }
-}
-
-//Anche qui da usare Knockout JS ???
-// each time a character of the input field changes, i check for markers changes
-$("#input").keyup(function() {
-    setMarkersOnMap();
-});
-
 var viewModel = {
     query: ko.observable(''),
-    searchBoxVisible : ko.observable(true)
+    searchBoxVisible : ko.observable(true),
 };
 
 viewModel.locations = ko.computed(function() {
+    //console.log('qui ci passo ogni volta che un carattere viene cambiata nella textbox');
     var self = this;
     var search = self.query().toLowerCase();
     return ko.utils.arrayFilter(locations, function(loc) {
         if (loc.title.toLowerCase().indexOf(search) >= 0) {
+            if (!loc.wasVisible) {
+                loc.markerVar.setMap(map);
+                loc.wasVisible = true;
+                }
             return loc.isVisible(true);
         } else {
+            if (loc.wasVisible) {
+                loc.markerVar.setMap(null);
+                loc.wasVisible = false;
+            }
             return loc.isVisible(false);
         }
     });
@@ -293,3 +277,5 @@ function showHideSearchBox() {
 }
 
 ko.applyBindings(viewModel);
+
+
