@@ -8,6 +8,7 @@ This project show some functionality of Google maps API, the map shows some hist
 
 ### Tools:
 * knockoutJS
+* jQuery
 
 ### APIs:
 * Google maps
