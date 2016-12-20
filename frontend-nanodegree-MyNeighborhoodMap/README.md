@@ -1,6 +1,6 @@
 # Frontend-nanodegree: Neighborhood map project
 
-##### How to run the project:
+##### To run the project locally just open the **index.html** file, alternatively there's the following link:
 https://peolex4.github.io/frontend-nanodegree-MyNeighborhoodMap/
 
 ### Basic description:

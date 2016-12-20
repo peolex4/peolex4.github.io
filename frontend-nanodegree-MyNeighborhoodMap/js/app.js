@@ -102,6 +102,10 @@ function myInitMap() {
     // Creating markers
     setMarkers(locations);
     map.fitBounds(bounds);
+    //Great hint from reviewer!
+    google.maps.event.addDomListener(window, 'resize', function() {
+      map.fitBounds(bounds); // `bounds` is a `LatLngBounds` object
+    });
 }
 
 
@@ -252,13 +256,15 @@ viewModel.locations = ko.computed(function() {
     return ko.utils.arrayFilter(locations, function(loc) {
         if (loc.title.toLowerCase().indexOf(search) >= 0) {
             if (!loc.wasVisible) {
-                loc.markerVar.setMap(map);
+                //loc.markerVar.setMap(map);
+                loc.markerVar.setVisible(true);     //optimized way
                 loc.wasVisible = true;
                 }
             return loc.isVisible(true);
         } else {
             if (loc.wasVisible) {
-                loc.markerVar.setMap(null);
+                //loc.markerVar.setMap(null);
+                loc.markerVar.setVisible(false);    //optimized way
                 loc.wasVisible = false;
             }
             return loc.isVisible(false);
@@ -278,4 +284,6 @@ function showHideSearchBox() {
 
 ko.applyBindings(viewModel);
 
-
+function mapError() {
+    window.alert("Error occurred trying to connect Google Maps server. Please check your internet connection e refresh the page");
+}

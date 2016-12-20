@@ -11,31 +11,25 @@
 </head>
 
 <body>
-
-    <div class="settings-box" data-bind="css: { searchBoxGone: !searchBoxVisible() }">
+    <aside class="settings-box" data-bind="css: { searchBoxGone: !searchBoxVisible() }">
         <input id="input" type="input" placeholder="Search…" data-bind="textInput: query, valueUpdate: 'keyup'" autocomplete="off">
-        <div id="scrolling-box">
             <ul data-bind="template: {name: 'loc', foreach: locations}" id="loc-list"></ul>
             <script type="text/html" id="loc">
-                <div data-bind="visible: isVisible" class="list-info-blocks">
-                    <a href="" data-bind="click: locClicked, event: { mouseover: locMouseOver, mouseout: locMouseOut }">
-                        <li>
-                            <h3 data-bind="text: title" class="list-info"></h3>
-                            <p data-bind="text: address" class="list-info"></p>
-                            <p data-bind="text: city" class="list-info"></p>
-                        </li>
-                    </a>
-                </div>
+                <a class="list-info-blocks" href="" data-bind="click: locClicked, event: { mouseover: locMouseOver, mouseout: locMouseOut }, visible: isVisible">
+                    <li>
+                        <h3 data-bind="text: title" class="list-info"></h3>
+                        <p data-bind="text: address" class="list-info"></p>
+                        <p data-bind="text: city" class="list-info"></p>
+                    </li>
+                </a>
             </script>
-        </div>
         <img id="arrow_img" alt="arrow image" data-bind="attr: { src: searchBoxVisible() ? 'images/hide.png' : 'images/show.png'}, click: showHideSearchBox">
-    </div>
-    <div id="map"></div>
+    </aside>
+    <main id="map"></main>
 
-    <script type="text/javascript" src="js/lib/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="js/lib/knockout-3.4.1.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD40E-ru_9e97j6z-VXjwqr1bv567TIjMk&v=3&callback=myInitMap"></script>
+    <script src="js/lib/knockout-3.4.1.js"></script>
+    <script src="js/app.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD40E-ru_9e97j6z-VXjwqr1bv567TIjMk&v=3&callback=myInitMap" async defer onerror="mapError()"></script>
 </body>
 
 </html>
